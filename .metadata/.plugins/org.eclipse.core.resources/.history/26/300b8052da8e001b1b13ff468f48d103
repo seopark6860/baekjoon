@@ -1,0 +1,36 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Alg_2309 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		// TODO Auto-generated method stub
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int[] arr = new int[9];
+		int[] ans = new int[7];
+		for(int i=0; i<9; i++) {
+			arr[i] = Integer.parseInt(br.readLine());
+		}
+		int sum = 0;
+		int cnt = 0;
+		for(int i=0; i<9; i++) {
+			sum += arr[i];
+			cnt++;
+			ans[cnt] = arr[i];
+			if(cnt == 7 && sum == 100) {
+				break;
+			} else {
+				sum -= arr[i];
+				cnt--;
+				ans[cnt] = 0;
+			}
+		}
+		for(int i=0; i<7; i++) {
+			System.out.println(ans[i]);
+		}
+	}
+
+}

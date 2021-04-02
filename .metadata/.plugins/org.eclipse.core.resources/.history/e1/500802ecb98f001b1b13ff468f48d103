@@ -1,0 +1,37 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Alg_15649 {
+	static int n, m;
+	static int[] arr;
+	
+	public static void dfs(int depth, int num) {
+		if(depth == m) {
+			for(int i=0; i<m; i++)
+				System.out.print(arr[i] + " ");
+			System.out.println();
+			return;
+		}
+		for(int i=0; i<n; i++) {
+			arr[depth] = num;
+			dfs(depth + 1, num + 1);
+			depth--;
+			num--;
+		}
+	}
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+		
+		arr = new int[m];
+		dfs(0, 1);
+	}
+
+}

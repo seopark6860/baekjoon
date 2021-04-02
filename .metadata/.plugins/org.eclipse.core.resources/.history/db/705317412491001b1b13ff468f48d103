@@ -1,0 +1,44 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+public class Alg_2231 {
+
+	public static int solve(int n) {
+		ArrayList<Integer> list = new ArrayList<>();
+		
+		int num = n;
+		int tmp;
+		
+		while(num > 0) {
+			list.add(num % 10);
+			num /= 10;			// 6 , 1, 2
+		}
+		int sum = n;			// 216
+		for(int i : list) {
+			sum -= i;		// 207
+		}
+		tmp = sum;
+		for(int i : list)
+			tmp += i;
+		if(tmp == n) {
+			solve(sum);
+		
+		}
+		else
+			return tmp;
+		return 0;
+	}
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		// TODO Auto-generated method stub
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		
+		int num = solve(n);
+		System.out.println(num);
+	}
+
+}

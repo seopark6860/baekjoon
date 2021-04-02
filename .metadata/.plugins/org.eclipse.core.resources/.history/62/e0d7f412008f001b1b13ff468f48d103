@@ -1,0 +1,14 @@
+package programmers;
+
+public class Alg_programmers {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String new_id = "...!@BaT#*..y.abcdefghijklm";
+        String answer = "";
+        
+        String[] str = new_id.split("");
+        
+	
+	}
+}

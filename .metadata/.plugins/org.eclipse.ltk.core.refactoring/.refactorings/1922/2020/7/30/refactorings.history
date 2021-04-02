@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;&apos; to &apos;Alg_1922.Node.end&apos;&#x0D;&#x0A;- Original project: &apos;1922&apos;&#x0D;&#x0A;- Destination element: &apos;Alg_1922.Node.end&apos;&#x0D;&#x0A;- Original element: &apos;Alg_1922.Node&apos;" description="Copy type" destination="/src&lt;{Alg_1922.java[Alg_1922[Node^end" element1="/src&lt;{Alg_1922.java[Alg_1922[Node" flags="589830" id="org.eclipse.jdt.ui.copy" members="1" policy="org.eclipse.jdt.ui.copyMembers" stamp="1595222003294" version="1.0"/>
+</session>

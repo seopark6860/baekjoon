@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Alg_1018 {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
+		
+		String[][] arr = new String[n][m];
+		for(int i=0; i<n; i++) {
+			String[] str = br.readLine().split("");		
+			for(int j=0; j<m; j++) {
+				arr[i][j] = str[j];
+			}
+		}
+		
+		int size = 0;
+		int change = 0;
+		int min = Integer.MAX_VALUE;
+		boolean flag = true;			// true == white
+		if(arr[0][0].equals("B"))
+			flag = false;
+		for(int i=0; i<n; i++) {
+			for(int j=1; j<m; j++) {
+				if(flag) {
+					if(arr[i][j].equals("W")) {
+						arr[i][j] = "B";
+						flag = false;
+						change++;
+					}
+				}
+				else {								// flag == false
+					if(arr[i][j].equals("B")) {
+						arr[i][j] = "W";
+						flag = true;
+						change++;
+					}
+				}
+			}
+		}
+		System.out.println();
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<n; j++) {
+				System.out.print(arr[i][j]);
+			}
+			System.out.println();
+		}
+			
+	}
+
+}

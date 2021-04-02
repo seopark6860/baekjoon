@@ -1,0 +1,28 @@
+package programmers;
+
+public class Alg_programmers {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String[] participant = {"leo", "kiki", "eden"};
+		String[] completion = {"eden", "kiki"} ;
+        String answer = "";
+
+        int len = participant.length;
+        int ans = 0;
+        boolean check = false;
+        for(int i=0; i<len; i++) {
+        	check = false;
+        	for(int j=0; j<completion.length; j++) {
+        		if(participant[i].equals(completion[j])) {
+        			check = true;
+        			break;
+        		}
+        	}
+        	if(!check) 
+        		ans = i;
+        }
+        answer = participant[ans];
+        System.out.println(answer);
+	}
+}
