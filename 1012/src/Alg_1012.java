@@ -1,67 +1,60 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Alg_1012 {
 	static int[] dx = {0, 1, 0, -1};
 	static int[] dy = {1, 0, -1, 0};
-	static int[][] map;
+	static int m, n, k;
+	static int[][] arr;
 	static boolean[][] visited;
-	static int m, n;
-	static ArrayList<Integer> ans = new ArrayList<>();	// Áö··ÀÌ °³¼ö
 	
-	static void dfs(int x, int y) {
+	public static void dfs(int x, int y) {
 		visited[x][y] = true;
 		
 		for(int i=0; i<4; i++) {
 			int nx = x + dx[i];
 			int ny = y + dy[i];
 			
-			if(nx>=0 && ny>=0 && nx<m && ny<n) {
-				if(map[nx][ny]==1 && visited[nx][ny]==false) {
+			if(nx >= 0 && nx < m && ny >= 0 && ny < n) {
+				if(arr[nx][ny] == 1 && !visited[nx][ny]) {
 					dfs(nx, ny);
 				}
-				
 			}
 		}
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws NumberFormatException, IOException {
 		
-		int t = sc.nextInt();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int t = Integer.parseInt(br.readLine());
 		
 		while(t-- > 0) {
-			m = sc.nextInt();
-			n = sc.nextInt();
-			int k = sc.nextInt();
-		
-			map = new int[m][n];
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			m = Integer.parseInt(st.nextToken());
+			n = Integer.parseInt(st.nextToken());
+			k = Integer.parseInt(st.nextToken());
 			
+			arr = new int[m][n];
 			for(int i=0; i<k; i++) {
-				int u = sc.nextInt();
-				int v = sc.nextInt();
-			
-				map[u][v] = 1;	
+				st = new StringTokenizer(br.readLine());
+				int u = Integer.parseInt(st.nextToken());
+				int v = Integer.parseInt(st.nextToken());
+				
+				arr[u][v] = 1;
 			}
-			
+			int res =0;
 			visited = new boolean[m][n];
-			int cnt=0;
 			for(int i=0; i<m; i++) {
 				for(int j=0; j<n; j++) {
-					if(map[i][j] == 1 && visited[i][j] == false) {
+					if(arr[i][j] == 1 && !visited[i][j]) {
+						res++;
 						dfs(i, j);
-						cnt++;
 					}
 				}
-			}	
-			ans.add(cnt);
-		}
-		for(int i=0; i<ans.size(); i++) {
-			System.out.println(ans.get(i));
+			}
+			System.out.println(res);
 		}
 	}
-
 }

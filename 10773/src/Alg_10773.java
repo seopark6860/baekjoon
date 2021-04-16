@@ -1,28 +1,29 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Stack;
 
 public class Alg_10773 {
-
-	public static void main(String[] args) throws Exception, IOException {
-		// TODO Auto-generated method stub
-
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int k = Integer.parseInt(br.readLine());
-		int res = 0;
+	public static void main(String[] args) throws NumberFormatException, IOException {
 		
-		Stack<Integer> stack = new Stack<>();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int k = Integer.parseInt(br.readLine());
+		
+		int[] stack = new int[k];
+	
+		int index = -1;
 		while(k-- > 0) {
 			int n = Integer.parseInt(br.readLine());
-			if (n != 0) {
-				stack.push(n);
-				res += n;
+			
+			if(n != 0) {
+				stack[++index] = n;
 			}
-			else {
-				res -= stack.peek();
-				stack.pop();
-			}
+			else
+				stack[index--] = 0;
+		}
+		int res = 0;
+		for(int i : stack) {
+			res += i;
 		}
 		System.out.println(res);
 	}
