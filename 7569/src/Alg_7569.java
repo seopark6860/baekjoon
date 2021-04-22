@@ -1,87 +1,102 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Alg_7569 {
-	static int[] dx = { 0, 0, 0, 1, 0, -1 };	
-	static int[] dy = { 0, 0, 1, 0, -1, 0 };
-	static int[] dz = { 1, -1, 0, 0, 0, 0 };
+	static int[] dx= {0, 1, 0, -1, 0, 0};	// 위, 오, 아래, 왼, 앞, 뒤
+	static int[] dy= {1, 0, -1, 0, 0, 0};
+	static int[] dz= {0, 0, 0, 0, 1, -1};
 	static int m, n, h;
-	static int[][][] map;
-//	static boolean[][][] visited;
-	static Queue<Node> q;
+	static int[][][] arr;
+	static Queue<Node> q = new LinkedList<Node>();
 	
-	public static void bfs() {	
+	public static void printMap() {
+		for(int k=0; k<h; k++) {
+			for(int z=0; z<n; z++) {
+				for(int j=0; j<m; j++) {
+					System.out.print(arr[k][z][j]);
+				}
+				System.out.println();
+			}
+		}
+	}
+	public static void bfs() {
 		while(!q.isEmpty()) {
 			Node node = q.poll();
-//			visited[node.z][node.x][node.y] = true;
 			
 			for(int i=0; i<6; i++) {
 				int nx = node.x + dx[i];
 				int ny = node.y + dy[i];
 				int nz = node.z + dz[i];
 				
-				if(0<=nx && nx<n && 0<=ny && ny<m && 0<=nz && nz<h) {
-//					if(map[nz][nx][ny] == 0 && !visited[nz][nx][ny]) {
-					if(map[nz][nx][ny] == 0) {
-						q.add(new Node(nz, nx, ny));
-						map[nz][nx][ny] = map[node.z][node.x][node.y]+1;
-					}
+				if(nx < 0 || nx >= n || ny < 0 || ny >= m || nz < 0 || nz >= h)
+					continue;
+				if(arr[nz][nx][ny] == 0) {
+					q.add(new Node(nz, nx, ny));
+					arr[nz][nx][ny] = arr[node.z][node.x][node.y] + 1;
 				}
+//				printMap();
+//				System.out.println();
 			}
 		}
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		Scanner sc = new Scanner(System.in);
-
-		m = sc.nextInt();	// 행
-		n = sc.nextInt();	// 열
-		h = sc.nextInt();	// 면
+	
+	public static void main(String[] args) throws IOException {
 		
-		map = new int[h][n][m];		// 면 행 열
-//		visited = new boolean[h][n][m];
-		q = new LinkedList<Node>();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		for (int k = 0; k < h; k++) {
-			for (int i = 0; i < n; i++) {
-				for (int j = 0; j < m; j++) {
-					int x = sc.nextInt();
-					map[k][i][j] = x;
-					
-					if(map[k][i][j] == 1)
+		m = Integer.parseInt(st.nextToken());
+		n = Integer.parseInt(st.nextToken());
+		h = Integer.parseInt(st.nextToken());
+		
+		arr = new int[h][n][m];
+		int zero = 0;
+		for(int k=0; k<h; k++) {
+			for(int i=0; i<n; i++) {
+				st = new StringTokenizer(br.readLine());
+				for(int j=0; j<m; j++) {
+					arr[k][i][j] = Integer.parseInt(st.nextToken());
+					if(arr[k][i][j] == 1) {
 						q.add(new Node(k, i, j));
+					}
+					if(arr[k][i][j] == 0)
+						zero++;
 				}
 			}
 		}
-		bfs();
+		if(zero == 0) {
+			System.out.println(0);
+			return ;
+		}
 		
-		int ans = 0;
-		for (int k = 0; k < h; k++) {
-			for (int i = 0; i < n; i++) {
-				for (int j = 0; j < m; j++) {
-					if(ans < map[k][i][j]) {
-						ans = map[k][i][j];
-					}
-					if (map[k][i][j] == 0) {
+		bfs();
+//		printMap();
+		int max = 0;
+		for(int k=0; k<h; k++) {
+			for(int i=0; i<n; i++) {
+				for(int j=0; j<m; j++) {
+					if(arr[k][i][j] == 0){
 						System.out.println(-1);
 						return;
 					}
+					max = Math.max(max, arr[k][i][j]);
 				}
 			}
 		}
-		System.out.println(ans-1);
+		System.out.println(max - 1);
 	}
 }
 class Node {
+	int z;
 	int x;
 	int y;
-	int z;
 	Node(int z, int x, int y){
+		this.z = z;
 		this.x = x;
 		this.y = y;
-		this.z = z;
 	}
 }
