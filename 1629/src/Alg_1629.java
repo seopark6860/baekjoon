@@ -6,15 +6,19 @@ import java.util.StringTokenizer;
 public class Alg_1629 {
 	
 	public static long solve(long a, long b, long c) {
-		if(b == 0) return 1;
-		if(b % 2 == 1) {
-			long res = solve(a, b/2, c) % c;
-			return (res * res) % c;
-		} else {
-			long res = solve(a, b/2, c) % c;
-			return 
+		// 지수가 1일 경우 a^1이므로 a 리턴
+		if(b == 1) {
+			return a % c;
 		}
-		return res;
+		else {
+			long tmp = solve(a, b / 2, c);
+			if(b % 2 == 0) {
+				return (tmp * tmp) % c;
+			}
+			else {
+				return (((tmp * tmp) % c) * a) % c;
+			}
+		}
 	}
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
@@ -29,5 +33,4 @@ public class Alg_1629 {
 		
 		System.out.println(solve(a, b, c));
 	}
-
 }
